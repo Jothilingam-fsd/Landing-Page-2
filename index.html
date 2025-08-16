@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyTrail — Travel Agency</title>
+  <meta name="description" content="Discover, compare, and book unforgettable trips with SkyTrail Travel Agency." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: #111833;
+      --muted: #a9b1d6;
+      --text: #e7eaf6;
+      --accent: #5cf0d1;
+      --accent-2: #8ab4ff;
+      --ring: rgba(92, 240, 209, .35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, #22306b 0%, transparent 60%), radial-gradient(900px 500px at 110% 10%, #1a4056 0%, transparent 55%), var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1150px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    .header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(to bottom, rgba(11,16,32,.8), rgba(11,16,32,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .logo{width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); display:grid; place-items:center; box-shadow: var(--shadow)}
+    .logo span{font-weight:800; color:#0b1020}
+    .links{display:flex; gap:18px; align-items:center}
+    .links a{padding:8px 10px; color:var(--muted)}
+    .links a:hover{color:#fff}
+    .cta-btn{
+      background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#07121b; font-weight:700;
+      padding:10px 16px; border:none; border-radius:12px; cursor:pointer; box-shadow: var(--shadow)
+    }
+
+    /* Hero */
+    .hero{position:relative; padding:72px 0 40px}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:center}
+    .eyebrow{display:inline-flex; gap:8px; align-items:center; color:#0b1020; background:rgba(92,240,209,.9); padding:6px 10px; border-radius:999px; font-weight:700}
+    .eyebrow small{opacity:.9}
+    h1{font-size:clamp(32px, 4.4vw, 56px); line-height:1.05; margin:14px 0}
+    .sub{color:var(--muted); font-size:18px; max-width:60ch}
+
+    .search-card{
+      margin-top:26px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.1); border-radius:var(--radius); padding:14px; box-shadow: var(--shadow)
+    }
+    .search-form{display:grid; grid-template-columns:2fr 1.2fr 1.2fr .8fr; gap:10px}
+    .field{display:flex; flex-direction:column}
+    label{font-size:12px; color:var(--muted); margin:4px 6px}
+    input, select{
+      appearance:none; background:#0e1533; color:#eaf2ff; border:1px solid rgba(255,255,255,.12);
+      padding:12px 14px; border-radius:12px; outline:none; transition: box-shadow .2s, border-color .2s
+    }
+    input:focus, select:focus{border-color:var(--accent); box-shadow:0 0 0 4px var(--ring)}
+    .search-submit{align-self:end}
+    .btn{
+      width:100%; padding:12px 16px; border-radius:12px; border:none; cursor:pointer; font-weight:700; letter-spacing:.2px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#061018; box-shadow: var(--shadow)
+    }
+
+    /* Badges */
+    .badges{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .badge{border:1px dashed rgba(255,255,255,.2); color:var(--muted); padding:6px 10px; border-radius:999px; font-size:12px}
+
+    /* Destinations */
+    .section{padding:64px 0}
+    .section h2{font-size:clamp(24px, 3vw, 36px); margin:0 0 16px}
+    .section p.lead{color:var(--muted); margin:0 0 22px}
+
+    .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.1); border-radius:18px; overflow:hidden; box-shadow: var(--shadow)}
+    .card-media{position:relative; aspect-ratio: 16/10; overflow:hidden}
+    .card-media img{width:100%; height:100%; object-fit:cover; transform:scale(1.03); transition:transform .6s ease}
+    .card:hover .card-media img{transform:scale(1.08)}
+    .tag{position:absolute; top:10px; left:10px; background:rgba(0,0,0,.55); backdrop-filter: blur(4px); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px}
+    .card-body{padding:14px}
+    .card-title{font-weight:700}
+    .card-meta{display:flex; align-items:center; gap:10px; color:var(--muted); font-size:14px; margin-top:6px}
+
+    /* Features */
+    .features{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px}
+    .feature{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.1); border-radius:18px; padding:16px; min-height:120px}
+    .feature h3{margin:6px 0 6px; font-size:18px}
+    .feature p{margin:0; color:var(--muted); font-size:14px}
+
+    /* Testimonials */
+    .testimonials{display:grid; grid-template-columns:1.2fr .8fr; gap:18px}
+    .quote{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.1); border-radius:18px; padding:22px
+    }
+    .quote p{margin:0 0 12px}
+    .author{display:flex; align-items:center; gap:10px; color:var(--muted)}
+    .avatar{width:40px; height:40px; border-radius:50%; overflow:hidden}
+
+    /* CTA */
+    .cta{ text-align:center; padding:60px 20px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.1); border-radius:22px}
+    .cta h3{font-size:clamp(22px, 3vw, 34px); margin:0 0 8px}
+    .cta p{color:var(--muted); margin:0 0 16px}
+
+    /* Footer */
+    footer{padding:30px 0; color:var(--muted)}
+    .footgrid{display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:16px}
+    .footgrid h4{color:#fff; margin:0 0 10px}
+    .footgrid a{display:block; padding:4px 0; color:var(--muted)}
+    .footgrid a:hover{color:#fff}
+    .subfoot{display:flex; justify-content:space-between; align-items:center; padding-top:20px; border-top:1px solid rgba(255,255,255,.08)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr}
+      .features{grid-template-columns:repeat(2, 1fr)}
+      .grid{grid-template-columns:repeat(2, 1fr)}
+      .search-form{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 620px){
+      .links{display:none}
+      .grid{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr}
+      .footgrid{grid-template-columns:1fr 1fr}
+      .search-form{grid-template-columns:1fr; gap:8px}
+    }
+  </style>
+</head>
+<body>
+  <header class="header" aria-label="Primary">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="SkyTrail home">
+        <div class="logo" aria-hidden="true"><span>✈︎</span></div>
+        <span>SkyTrail</span>
+      </a>
+      <nav class="links" aria-label="Site">
+        <a href="#destinations">Destinations</a>
+        <a href="#deals">Deals</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#contact">Contact</a>
+        <button class="cta-btn">Sign In</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span>NEW</span><small>Monsoon getaways · Up to 35% off</small></div>
+          <h1>Your next adventure, curated to perfection.</h1>
+          <p class="sub">From beach breaks to mountain escapes, SkyTrail compares top airlines and stays so you book faster and travel smarter.</p>
+
+          <form class="search-card" action="#deals" method="get" aria-label="Search trips">
+            <div class="search-form">
+              <div class="field">
+                <label for="from">From</label>
+                <input id="from" name="from" type="text" placeholder="Chennai (MAA)" required />
+              </div>
+              <div class="field">
+                <label for="to">To</label>
+                <input id="to" name="to" type="text" placeholder="Bali (DPS)" required />
+              </div>
+              <div class="field">
+                <label for="dates">Dates</label>
+                <input id="dates" name="dates" type="text" placeholder="12 Sep → 18 Sep" />
+              </div>
+              <div class="field search-submit">
+                <button class="btn" type="submit">Search Trips</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="badges" aria-label="Trust badges">
+            <div class="badge">✔ 24/7 support</div>
+            <div class="badge">★ 4.9/5 from 12k reviews</div>
+            <div class="badge">₹ Best-price guarantee</div>
+          </div>
+        </div>
+        <div aria-hidden="true">
+          <div class="card">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1400&auto=format&fit=crop" alt="Tropical beach with turquoise water and palm trees" />
+              <span class="tag">Trending · Islands</span>
+            </div>
+            <div class="card-body">
+              <div class="card-title">Bali Escape</div>
+              <div class="card-meta">5 nights · from ₹38,999</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="destinations" class="section container">
+      <h2>Popular Destinations</h2>
+      <p class="lead">Handpicked places travelers love this season.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1400&auto=format&fit=crop" alt="Paris skyline with the Eiffel Tower at dusk" />
+            <span class="tag">City · Culture</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Paris, France</div>
+            <div class="card-meta">4 nights · from ₹54,500</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?q=80&w=1400&auto=format&fit=crop" alt="Snow-capped mountains and pine forest in Switzerland" />
+            <span class="tag">Alps · Nature</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Zermatt, Switzerland</div>
+            <div class="card-meta">6 nights · from ₹89,200</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1400&auto=format&fit=crop" alt="Golden Gate Bridge in San Francisco at sunrise" />
+            <span class="tag">Coast · Food</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">San Francisco, USA</div>
+            <div class="card-meta">5 nights · from ₹76,300</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="why-us" class="section container">
+      <h2>Why travel with SkyTrail?</h2>
+      <p class="lead">We combine expert planning with traveler-first perks.</p>
+      <div class="features">
+        <div class="feature">
+          <h3>Best Price Match</h3>
+          <p>If you find a lower price, we match it. Simple.</p>
+        </div>
+        <div class="feature">
+          <h3>Flexible Bookings</h3>
+          <p>Change plans with minimal fees on select fares.</p>
+        </div>
+        <div class="feature">
+          <h3>Handpicked Stays</h3>
+          <p>Only top-rated hotels and homestays make the cut.</p>
+        </div>
+        <div class="feature">
+          <h3>Local Experts</h3>
+          <p>On-ground guides for authentic, safe experiences.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="deals" class="section container">
+      <h2>Limited-Time Deals</h2>
+      <p class="lead">Grab these offers before they fly away.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1400&auto=format&fit=crop" alt="Sea cliffs and blue water in Phuket" />
+            <span class="tag">Save 30%</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Phuket Getaway</div>
+            <div class="card-meta">4 nights · from ₹29,999</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1494475673543-6a6a27143b22?q=80&w=1400&auto=format&fit=crop" alt="Desert dunes near Dubai with camel silhouettes" />
+            <span class="tag">Flash Deal</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Dubai Desert Escape</div>
+            <div class="card-meta">3 nights · from ₹25,499</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=1400&auto=format&fit=crop" alt="Boats on the canals of Venice" />
+            <span class="tag">Monsoon Special</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Venice & Verona</div>
+            <div class="card-meta">5 nights · from ₹64,700</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="testimonials">
+        <div class="quote">
+          <p>“Booking with SkyTrail was effortless. Our Bali honeymoon was perfectly planned and under budget. Will use again!”</p>
+          <div class="author">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" alt="Portrait of Priya" /></div>
+            <span>Priya & Arun · Chennai</span>
+          </div>
+        </div>
+        <div class="cta">
+          <h3>Ready to take off?</h3>
+          <p>Sign up for fare drops and exclusive packages.</p>
+          <form action="#" method="post" aria-label="Subscribe">
+            <div class="search-form" style="grid-template-columns: 2fr .8fr; gap:10px">
+              <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
+              <button class="btn" type="submit">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="container">
+    <div class="footgrid">
+      <div>
+        <h4>SkyTrail</h4>
+        <p>Your trusted partner for flights, stays, and experiences worldwide.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Cancellation Options</a>
+        <a href="#">Safety</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+    <div class="subfoot">
+      <small>© <span id="year">2025</span> SkyTrail Travel Co. · All rights reserved.</small>
+      <small>Made with ❤ for travelers</small>
+    </div>
+  </footer>
+
+  <script>
+    // Update footer year (no external libs)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
